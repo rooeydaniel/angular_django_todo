@@ -38,3 +38,4 @@ nosetests.xml
 .idea
 node_modules
 apps/public/lib
+project.db
