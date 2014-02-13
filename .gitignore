@@ -34,3 +34,7 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+.idea
+node_modules
+apps/public/lib
