@@ -3,7 +3,7 @@ This is your project's master URL configuration, it defines the set of "root" UR
 """
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
-from project import settings
+from project.settings import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     # Static files, served from server
     url(r'^static/(\?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 
-    # url(r'^', include('apps.public.urls')),
+    url(r'^', include('apps.public.urls')),
+
     url(r'^$', TemplateView.as_view(template_name='base.html')),
 )
