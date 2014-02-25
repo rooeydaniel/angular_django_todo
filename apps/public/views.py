@@ -1,14 +1,17 @@
 from django.http import HttpResponse
-from rest_framework.renderers import JSONRenderer
-from rest_framework.decorators import api_view
+from django.views.decorators.http import require_http_methods
+from django.core import serializers
+from json import dumps
 
-class JSONResponse(HttpResponse):
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content, **kwargs)
+from .models import Todo
 
-@api_view(('GET',))
+
+# Found at https://docs.djangoproject.com/en/dev/topics/http/decorators/
+@require_http_methods(["GET"])
 def todos(request):
-    todos = [{'title': 'Test One'}, {'title': 'Test Two'}, {'title': 'Test Three'}]
-    return JSONResponse(todos)
+    # Found at https://docs.djangoproject.com/en/dev/topics/serialization/
+    data = serializers.serialize("json", Todo.objects.all())
+    # return HttpResponse(data, mimetype="application/json")
+
+    new_data = [{'title': 'test todo one'}, {'title': 'test todo two'}]
+    return HttpResponse(dumps(new_data), mimetype="application/json")

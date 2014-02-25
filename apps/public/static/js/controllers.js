@@ -8,7 +8,12 @@ angular.module('todoApp.controllers', [])
             headers: {'Content-Type': undefined },
             transformRequest: angular.identity
         }).success(function (data) {
-			$scope.todos = data;
+            console.log(JSON.stringify(data));
+//            for (var i = 0; i < data.length; i++) {
+//                $scope.todos.push(data[i].fields);
+//            }
+
+            $scope.todos = data;
         }).error(function (response) {
         	console.log('Response: ' + response);
         });
