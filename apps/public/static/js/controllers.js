@@ -45,6 +45,8 @@ angular.module('todoApp.controllers', [])
                     reloadTodos(data);
                     $scope.todo.title = '';
                     $scope.todo.description = '';
+
+                    toastr.success('You successfully added a new todo!');
                 });
         };
 
@@ -52,6 +54,8 @@ angular.module('todoApp.controllers', [])
             baseTodo.all($scope.user.user_id).customPUT(todo)
                 .then(function (data) {
                     reloadTodos(data);
+
+                    toastr.success('You successfully changed the status of your todo!');
                 });
         };
 
@@ -65,6 +69,8 @@ angular.module('todoApp.controllers', [])
             baseTodo.all($scope.user.user_id).customPUT(todo)
                 .then(function (data) {
                     reloadTodos(data);
+
+                    toastr.success('You successfully changed the title of your todo!');
                 });
         };
 
@@ -79,6 +85,8 @@ angular.module('todoApp.controllers', [])
                 .then(function (data) {
                     reloadTodos(data);
                     $scope.deleteButton = true;
+
+                    toastr.success('You successfully changed the description of your todo!');
                 });
         };
 
@@ -86,18 +94,20 @@ angular.module('todoApp.controllers', [])
             baseTodo.all($scope.user.user_id).remove(todo)
                 .then(function(data) {
                     reloadTodos(data);
+
+                    toastr.success('You successfully removed your todo!');
                 });
-        }
+        };
 
         $scope.deleteButton = null;
 
         $scope.confirm = function () {
             $scope.deleteButton = true;
-        }
+        };
 
         $scope.cancelDelete = function () {
             $scope.deleteButton = false;
-        }
+        };
 
         function reloadTodos(data) {
             $scope.todos = [];

@@ -10,4 +10,8 @@ var todoApp = angular.module('todoApp', ['ngCookies', 'restangular', 'xeditable'
         editableOptions.theme = 'bs3';
         editableThemes.bs3.inputClass = 'input-sm';
         editableThemes.bs3.buttonsClass = 'btn-sm';
+
+        toastr.options = {
+            "positionClass": "toast-top-center"
+        };
     });
