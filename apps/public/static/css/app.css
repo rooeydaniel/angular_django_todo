@@ -93,3 +93,9 @@ footer {
     padding: 9px 15px;
     background-color: #000;
 }
+
+.toast-top-center {
+    top: 55px;
+    left: 50%;
+    margin-left: -150px;
+}

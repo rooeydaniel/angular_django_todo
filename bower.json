@@ -7,7 +7,8 @@
         "underscore": "latest",
         "restangular": "latest",
         "bootstrap": "latest",
-        "angular-xeditable": "latest"
+        "angular-xeditable": "latest",
+        "toastr": "2.0.1"
     },
     "resolutions": {
         "angular": "1.2.12"

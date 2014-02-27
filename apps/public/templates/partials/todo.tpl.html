@@ -94,7 +94,7 @@
                                         <button class="btn btn-info" onclick="cancelDeleteDjango({{ todo.id }});">No</button>
                                     </div>
                                     <button class="btn btn-danger" onclick="confirmDeleteDjango({{ todo.id }})" id="deleteButton{{ todo.id }}">Delete</button>
-                                    <button class="btn btn-default" data-toggle="modal" data-target="#editTodoModal{{ todo.id }}">Edit</button>
+                                    <button class="btn btn-default" data-toggle="modal" data-target="#editTodoModal{{ todo.id }}" id="tableEditButton{{ todo.id }}">Edit</button>
                                 </td>
                             </tr>
                             <!-- EditTodoModal -->
@@ -178,13 +178,13 @@
         function confirmDeleteDjango(todoId) {
             $("#deleteConfirm" + todoId).show();
             $("#deleteButton" + todoId).hide();
-            $("#editButton" + todoId).hide();
+            $("#tableEditButton" + todoId).hide();
         }
 
         function cancelDeleteDjango(todoId) {
             $("#deleteConfirm" + todoId).hide();
             $("#deleteButton" + todoId).show();
-            $("#editButton" + todoId).show();
+            $("#tableEditButton" + todoId).show();
         }
 
         function removeTodoDjango(todoId, userId) {
