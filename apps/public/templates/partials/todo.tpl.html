@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}AngularJS, Django: Todo Application | Todo{% endblock title %}
+
+{% block todo_link %}<li class="active"><a href="/todos">Current Todo List</a></li>{% endblock todo_link %}
+
+{% block content %}
+    {% verbatim %}
+    <div ng-controller="TodoController">
+        <h2 class="sub-header">Current Todos</h2>
+
+        <p id="empty" ng-hide="todos.length || !loaded">There are currently no todos.</p>
+
+        <form class="form-inline">
+            <input id="toto-title" type="text" ng-model="todo.title"/>
+            <button id="add-btn" class="btn btn-success" ng-click="addTodo(todo);">Add</button>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Complete</th>
+                        <th>Title</th>
+                        <th style="text-align: center;">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="todo in todos">
+                        <td>
+                            <label class="checkbox">
+                                <input type="checkbox"/>
+                            </label>
+                        </td>
+                        <td style="text-align: left;">{{ todo.title }}</td>
+                        <td>{{ todo.description }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endverbatim %}
+{% endblock content %}
