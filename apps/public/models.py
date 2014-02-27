@@ -7,6 +7,7 @@ class Todo(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=4000)
     create_date = models.DateTimeField()
+    completed = models.BooleanField(default=0)
 
     def __unicode__(self):
         return self.title

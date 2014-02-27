@@ -39,3 +39,4 @@ nosetests.xml
 node_modules
 apps/public/lib
 project.db
+staticfiles
