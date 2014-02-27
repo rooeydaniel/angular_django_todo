@@ -5,13 +5,12 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 
 urlpatterns = patterns('apps.public',
-    url(r'^api/todos/(?P<user_id>[0-9]+)', 'views.todos_api', name="todos_api"),
+    # Rest Pattern for Todo Items
     url(r'^api/todo/(?P<user_id>[0-9]+)$', 'views.todo_api', name="create_todo"),
 
     url(r'^user/id$', 'views.get_current_user_id', name="get_current_user_id"),
     url(r'^todos$', 'views.todos', name="todo_list_html"),
-    url(r'^user/login$', 'views.authenticate'),
-    url(r'^user/logout$', 'views.logout', name="user_logout"),
+    url(r'^logout$', 'views.logout', name="user_logout"),
     url(r'^login$', 'views.login', name="user_login"),
     url(r'^$', 'views.home', name="home"),
 )

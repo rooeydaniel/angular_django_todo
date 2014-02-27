@@ -12,7 +12,7 @@ angular.module('todoApp.controllers', [])
 
         $scope.doLogout = function () {
             SessionService.removeUserSession();
-            $window.location = '/user/logout';
+            $window.location = '/logout';
         };
     }])
     .controller('LoginController', ['$scope', function ($scope) {
@@ -32,22 +32,82 @@ angular.module('todoApp.controllers', [])
         $scope.todos = [];
 
         $scope.user = SessionService.getUserSession();
+        var baseTodo = Restangular.all('api/todo');
 
-        Restangular.all('api/todos').customGET($scope.user.user_id)
-            .then(function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    $scope.todos.push(data[i].fields);
-                }
+        baseTodo.customGETLIST($scope.user.user_id)
+            .then(function(data) {
+                reloadTodos(data);
             });
 
         $scope.addTodo = function (todo) {
-            Restangular.all('api/todo/' + $scope.user.user_id).customPOST(todo)
+            baseTodo.all($scope.user.user_id).customPOST(todo)
                 .then(function (data) {
-                    $scope.todos = [];
-                    for (var i = 0; i < data.length; i++) {
-                        $scope.todos.push(data[i].fields);
-                    }
+                    reloadTodos(data);
                     $scope.todo.title = '';
+                    $scope.todo.description = '';
                 });
+        };
+
+        $scope.changeCompleted = function (todo) {
+            baseTodo.all($scope.user.user_id).customPUT(todo)
+                .then(function (data) {
+                    reloadTodos(data);
+                });
+        };
+
+        $scope.changeTitle = function (title, id) {
+            var todo = {
+                "id": id,
+                "user": $scope.user.user_id,
+                "title": title
+            }
+
+            baseTodo.all($scope.user.user_id).customPUT(todo)
+                .then(function (data) {
+                    reloadTodos(data);
+                });
+        };
+
+        $scope.changeDescription = function (description, id) {
+            var todo = {
+                "id": id,
+                "user": $scope.user.user_id,
+                "description": description
+            }
+
+            baseTodo.all($scope.user.user_id).customPUT(todo)
+                .then(function (data) {
+                    reloadTodos(data);
+                    $scope.deleteButton = true;
+                });
+        };
+
+        $scope.removeTodo = function (todo) {
+            baseTodo.all($scope.user.user_id).remove(todo)
+                .then(function(data) {
+                    reloadTodos(data);
+                });
+        }
+
+        $scope.deleteButton = null;
+
+        $scope.confirm = function () {
+            $scope.deleteButton = true;
+        }
+
+        $scope.cancelDelete = function () {
+            $scope.deleteButton = false;
+        }
+
+        function reloadTodos(data) {
+            $scope.todos = [];
+            for (var i = 0; i < data.length; i++) {
+                var todo = data[i].fields;
+                todo['id'] = data[i].pk;
+                if (!todo['description']) {
+                    todo['description'] = 'Empty';
+                }
+                $scope.todos.push(todo);
+            }
         }
     }]);

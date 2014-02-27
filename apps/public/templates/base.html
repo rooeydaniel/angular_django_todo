@@ -12,6 +12,7 @@
         <title>{% block title %}Base Title - should never see{% endblock title %}</title>
 
         <link href="{% static 'lib/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'lib/angular-xeditable/dist/css/xeditable.css' %}" rel="stylesheet" />
         <link href="{% static 'css/app.css' %}" rel="stylesheet" />
         {% block extra_css %}{% endblock extra_css %}
 
@@ -20,6 +21,7 @@
         <script src="{% static 'lib/restangular/dist/restangular.min.js' %}"></script>
         <script src="{% static 'lib/angularLocalStorage/src/angularLocalStorage.js' %}"></script>
         <script src="{% static 'lib/underscore/underscore.js' %}"></script>
+        <script src="{% static 'lib/angular-xeditable/dist/js/xeditable.min.js' %}"></script>
         <script src="{% static 'js/app.js' %}"></script>
         <script src="{% static 'js/controllers.js' %}"></script>
         <script src="{% static 'js/services.js' %}"></script>

@@ -14,7 +14,7 @@
             Django Message: {{ message }}
         {% endif %}
 
-        <form name="loginForm" class="form-signin" novalidate method="post" action="/user/login">
+        <form name="loginForm" class="form-signin" novalidate method="post" action="/login">
             {% csrf_token %}
             <h2 class="form-signin-heading">Please sign in</h2>
             <input type="text" name="username" class="form-control" placeholder="Email address" ng-model="user.username"
