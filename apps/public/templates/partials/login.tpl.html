@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}AngularJS, Django: Todo Application | Home{% endblock title %}
+
+{% block login_link %}
+    <li class="active"><a href="/login">Login</a></li>
+{% endblock login_link %}
+
+{% block content %}
+    <div ng-controller="LoginController">
+        <div id="messages" ng-show="message">{% verbatim %} {{ message }} {% endverbatim %}</div>
+
+        {% if message %}
+            Django Message: {{ message }}
+        {% endif %}
+
+        <form name="loginForm" class="form-signin" novalidate method="post" action="/user/login">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <input type="text" name="username" class="form-control" placeholder="Email address" ng-model="user.username"
+                   required autofocus>
+            <span ng-show="hasError('username')">Email address is required</span>
+            <span ng-show="errorUsername">{% verbatim %} {{ errorUsername }} {% endverbatim %}</span>
+
+            <input type="password" name="password" class="form-control" placeholder="Password" ng-model="user.password"
+                   required>
+            <span ng-show="hasError('password')">Password is required</span>
+            <span ng-show="errorPassword">{% verbatim %} {{ errorPassword }} {% endverbatim %}</span>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+    </div>
+{% endblock content %}

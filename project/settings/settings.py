@@ -31,6 +31,12 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+import dj_database_url
+
+DATABASES = {
+    'default': dj_database_url.config()
+}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -128,6 +134,15 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.contrib.messages.context_processors.messages",
+    "django.core.context_processors.request",
+)
 
 ROOT_URLCONF = 'project.confs.urls'
 
@@ -187,5 +202,6 @@ LOGGING = {
 }
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+SESSION_FILE_PATH = '/tmp'
 
 from project.settings.local_settings import *

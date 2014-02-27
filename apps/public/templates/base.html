@@ -1,85 +1,114 @@
 <!DOCTYPE html>
 
-<html lang="en" ng-app="todoApp">
+{% load staticfiles %}
+
+<html lang="en" ng-app="todoApp" ng-controller="BaseController">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <link href="/static/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="/static/css/app.css" rel="stylesheet"/>
+        <title>{% block title %}Base Title - should never see{% endblock title %}</title>
 
-        <script src="/static/lib/angular/angular.min.js"></script>
-        <script src="/static/lib/angular-cookies/angular-cookies.min.js"></script>
+        <link href="{% static 'lib/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/app.css' %}" rel="stylesheet" />
+        {% block extra_css %}{% endblock extra_css %}
 
-        <title>AngularJS, Django Todo App</title>
+        <script src="{% static 'lib/angular/angular.min.js' %}"></script>
+        <script src="{% static 'lib/angular-cookies/angular-cookies.min.js' %}"></script>
+        <script src="{% static 'lib/restangular/dist/restangular.min.js' %}"></script>
+        <script src="{% static 'lib/angularLocalStorage/src/angularLocalStorage.js' %}"></script>
+        <script src="{% static 'lib/underscore/underscore.js' %}"></script>
+        <script src="{% static 'js/app.js' %}"></script>
+        <script src="{% static 'js/controllers.js' %}"></script>
+        <script src="{% static 'js/services.js' %}"></script>
     </head>
 
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">AngularJS, Django: Todo Application</a>
+        {% block navigation %}
+            <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">AngularJS, Django: Todo Application</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            {% block home_link %}
+                                <li><a href="/">Home</a></li>
+                            {% endblock home_link %}
+
+                            {% block login_link %}
+                                {% if not user.username %}
+                                    <li><a href="/login">Login</a></li>
+                                {% endif %}
+                            {% endblock login_link %}
+
+                            {% if user.username %}
+                                {% block todo_link %}
+                                    <li><a href="/todos">Current Todo List</a></li>
+                                {% endblock todo_link %}
+                                <li class="dropdown">
+                                    <a href="/my-account" class="dropdown-toggle" data-toggle="dropdown">
+                                        {{ user.first_name }} {{ user.last_name }} <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);" ng-click="doLogout();">Logout</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
                 </div>
             </div>
-        </div>
+        {% endblock navigation %}
 
         <div class="container">
-            <div class="starter-template" ng-controller="HomeController">
-
-                {% verbatim %}
-                <h2 class="sub-header">Current Todos</h2>
-
-                <p id="empty" ng-hide="todos.length || !loaded">There are currently no todos.</p>
-
-                <form class="form-inline">
-                    <input id="toto-title" type="text" ng-model="todo.title"/>
-                    <button id="add-btn" class="btn btn-success" ng-click="addTodo(todo);">Add</button>
-                </form>
-
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Complete</th>
-                                <th>Title</th>
-                                <th style="text-align: center;">Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="todo in todos">
-                                <td>
-                                    <label class="checkbox">
-                                        <input type="checkbox"/>
-                                    </label>
-                                </td>
-                                <td style="text-align: left;">{{ todo.title }}</td>
-                                <td>{{ todo.description }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {% endverbatim %}
+            <div class="starter-template">
+                {% block content %} Base content - should never see {% endblock content %}
 
                 <hr/>
 
-                <footer>
-                    <div class="container">
-                        <p class="text-muted credit">
-                            Copyright &copy; Coding Campus 2014 &middot;
-                        </p>
-                    </div>
-                </footer>
+                <div style="text-align: left;">
+                    <pre>
+                        User:
+                        {% if user %}
+                            Username: {{ user.username }}
+                            Password: {{ user.password }}
+                            First Name: {{ user.first_name }}
+                            Last Name: {{ user.last_name }}
+                            Email: {{ user.email }}
+                            Test: {{ request.session.test }}
+                        {% endif %}
+                    </pre>
+                </div>
+
+                {% block footer %}
+                    <hr/>
+
+                    <footer>
+                        <div class="container">
+                            <p class="text-muted credit">
+                                Copyright &copy; Coding Campus 2014 &middot;
+                            </p>
+                        </div>
+                    </footer>
+                {% endblock footer %}
             </div>
         </div>
         <!-- /.container -->
 
         <!-- javascript -->
-        <script src="/static/lib/jquery/jquery.min.js"></script>
-        <script src="/static/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
-        <script src="/static/js/app.js"></script>
-        <script src="/static/js/controllers.js"></script>
+        <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'lib/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        {% block extra_js %}{% endblock extra_js %}
     </body>
 </html>
