@@ -30,6 +30,7 @@ angular.module('todoApp.controllers', [])
     }])
     .controller('TodoController', ['$scope', '$http', 'Restangular', 'SessionService', function ($scope, $http, Restangular, SessionService) {
         $scope.todos = [];
+        $scope.types = {completed: false};
 
         $scope.user = SessionService.getUserSession();
         var baseTodo = Restangular.all('api/todo');

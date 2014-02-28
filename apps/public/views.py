@@ -80,6 +80,15 @@ def todos(request):
 
 @login_required(function=None, redirect_field_name=None, login_url='/login')
 @require_http_methods(["GET"])
+def todos_django(request):
+    response = {}
+    user = request.user
+    response['todos'] = Todo.objects.filter(user_id=user.id).order_by('create_date')
+    return render(request, 'partials/todo_django.tpl.html', response)
+
+
+@login_required(function=None, redirect_field_name=None, login_url='/login')
+@require_http_methods(["GET"])
 def get_current_user_id(request):
     user = [{'user_id': request.user.id}]
     return HttpResponse(dumps(user), content_type="application/json")
