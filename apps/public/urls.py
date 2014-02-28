@@ -10,6 +10,7 @@ urlpatterns = patterns('apps.public',
 
     url(r'^user/id$', 'views.get_current_user_id', name="get_current_user_id"),
     url(r'^todos$', 'views.todos', name="todo_list_html"),
+    url(r'^todos-django$', 'views.todos_django', name="todo_list_django"),
     url(r'^logout$', 'views.logout', name="user_logout"),
     url(r'^login$', 'views.login', name="user_login"),
     url(r'^$', 'views.home', name="home"),

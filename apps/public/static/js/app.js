@@ -1,6 +1,6 @@
 'use strict';
 
-var todoApp = angular.module('todoApp', ['ngCookies', 'restangular', 'xeditable', 'todoApp.controllers', 'todoApp.services'])
+var todoApp = angular.module('todoApp', ['ngCookies', 'restangular', 'xeditable', 'todoApp.controllers', 'todoApp.services', 'todoApp.filters'])
     .config(['RestangularProvider', function (RestangularProvider) {
         RestangularProvider.setBaseUrl('http://localhost:8000');
     }])
