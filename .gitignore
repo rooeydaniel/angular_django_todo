@@ -40,3 +40,4 @@ node_modules
 apps/public/lib
 project.db
 staticfiles
+local_settings.py
