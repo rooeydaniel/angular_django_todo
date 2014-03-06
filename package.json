@@ -1,7 +1,7 @@
 {
-    "name": "django-angular-seed",
+    "name": "django-angular-todo-seed",
     "description": "A starter project for Angular and Django",
-    "repository": "https://github.com/dstephenson/django_angular_pt.git",
+    "repository": "https://github.com/dstephenson/angular_django_todo.git",
     "engines": {
         "node": "~0.10.23"
     },
