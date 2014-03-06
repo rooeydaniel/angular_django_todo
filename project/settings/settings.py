@@ -31,10 +31,21 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-import dj_database_url
+# Heroku
+#import dj_database_url
+#
+# DATABASES = {
+#     'default': dj_database_url.config()
+# }
 
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'angular-django-todo',
+        'USER': 'dstephenson',
+        'PASSWORD': '',
+        'HOST': 'localhost'
+    }
 }
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
