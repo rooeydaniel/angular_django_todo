@@ -153,7 +153,7 @@
             var cElement = document.getElementById(completed);
 
             $.ajax({
-                url: 'http://localhost:8000/api/todo/' + userId,
+                url: 'http://angular-django-todo.com/api/todo/' + userId,
                 type: 'PUT',
                 headers: {
                     'X-CSRFToken': '{{ csrf_token }}'
@@ -184,7 +184,7 @@
             }
 
             $.ajax({
-                url: 'http://localhost:8000/api/todo/' + userId,
+                url: 'http://angular-django-todo.com/api/todo/' + userId,
                 type: 'DELETE',
                 headers: {
                     'X-CSRFToken': '{{ csrf_token }}'
@@ -204,7 +204,7 @@
             };
 
             $.ajax({
-                url: 'http://localhost:8000/api/todo/' + userId,
+                url: 'http://angular-django-todo.com/api/todo/' + userId,
                 type: 'POST',
                 data: todo,
                 success: function (data) {
@@ -219,7 +219,7 @@
             var token = '{{ csrf_token }}';
 
             $.ajax({
-                url: 'http://localhost:8000/api/todo/' + userId,
+                url: 'http://angular-django-todo.com/api/todo/' + userId,
                 type: 'PUT',
                 headers: {
                     'X-CSRFToken': '{{ csrf_token }}'

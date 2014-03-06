@@ -43,7 +43,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'angular-django-todo',
         'USER': 'dstephenson',
-        'PASSWORD': '',
+        'PASSWORD': 'dan22426',
         'HOST': 'localhost'
     }
 }
@@ -52,7 +52,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'angular-django-todo.com']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -203,4 +203,7 @@ LOGGING = {
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 SESSION_FILE_PATH = '/tmp'
 
-from project.settings.local_settings import *
+try:
+	from project.settings.local_settings import *
+except:
+	pass

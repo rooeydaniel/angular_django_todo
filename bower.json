@@ -1,16 +1,17 @@
 {
-    "name": "mean",
-    "version": "0.1.0",
-    "dependencies": {
-        "angular": "latest",
-        "angular-cookies": "latest",
-        "underscore": "latest",
-        "restangular": "latest",
-        "bootstrap": "latest",
-        "angular-xeditable": "latest",
-        "toastr": "2.0.1"
-    },
-    "resolutions": {
-        "angular": "1.2.12"
-    }
+  "name": "mean",
+  "version": "0.1.0",
+  "dependencies": {
+    "angular": "latest",
+    "angular-cookies": "latest",
+    "angularLocalStorage": "latest",
+    "underscore": "latest",
+    "restangular": "latest",
+    "bootstrap": "latest",
+    "angular-xeditable": "latest",
+    "toastr": "2.0.1"
+  },
+  "resolutions": {
+    "angular": "1.2.14"
+  }
 }
