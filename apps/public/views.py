@@ -11,6 +11,7 @@ from urlparse import parse_qs
 
 from django.contrib.auth.models import User
 from .models import Todo
+from .forms import AddTodoForm, EditTodoForm, DeleteTodoForm
 
 @require_http_methods(["GET", "POST", "PUT", "DELETE", "OPTIONS"])
 def todo_api(request, user_id):
@@ -89,6 +90,80 @@ def todos_django(request):
 
 @login_required(function=None, redirect_field_name=None, login_url='/login')
 @require_http_methods(["GET"])
+def todos_django_pure(request):
+    response = {}
+    user = request.user
+    response['todos'] = Todo.objects.filter(user_id=user.id).order_by('create_date')
+    return render(request, 'partials/todos_django_pure.tpl.html', response)
+
+
+@login_required(function=None, redirect_field_name=None, login_url='/login')
+@require_http_methods(["GET", "POST"])
+def todos_django_pure_delete(request, todo_id):
+    todo = Todo.objects.get(pk=todo_id)
+    if request.method == "POST":
+        todo.delete()
+        return redirect('/todos-django-pure')
+
+    response = {'action': '/todos-django-pure/delete/' + str(todo_id)}
+    return render(request, 'partials/todo_django_pure_delete.tpl.html', response)
+
+
+@login_required(function=None, redirect_field_name=None, login_url='/login')
+@require_http_methods(["GET", "POST"])
+def todos_django_pure_edit(request, todo_id):
+    response = {'action': todo_id}
+    if request.session['message']:
+        response['message'] = request.session['message']
+        request.session['message'] = None
+
+    response['label_display'] = 'Update'
+
+    todo = Todo.objects.get(pk=todo_id)
+    todoForm = EditTodoForm(instance=todo)
+    if request.method == "POST":
+        todoForm = EditTodoForm(request.POST, request.FILES, instance=todo)
+        if todoForm.is_valid():
+            if todoForm.cleaned_data['title'] != 'Blah':
+                response['error_message'] = 'Title is wrong!'
+            else:
+                todoForm.save()
+                response['message'] = 'Todo was updated successfully!'
+        else:
+            error_message = 'The following fields have errors:<br/>'
+            for error in todoForm.errors:
+                error_message += '<br/>' + str(error)
+            response['error_message'] = error_message
+
+    response['form'] = todoForm
+    return render(request, 'partials/todo_django_pure_edit.tpl.html', response)
+
+@login_required(function=None, redirect_field_name=None, login_url='/login')
+@require_http_methods(["GET", "POST"])
+def todos_django_pure_add(request):
+    response = {'action': '/todos-django-pure/add'}
+    response['label_display'] = 'Add'
+
+    todoForm = AddTodoForm()
+    if request.method == "POST":
+        todoForm = AddTodoForm(request.POST, request.FILES)
+        if todoForm.is_valid():
+            new_todo = todoForm.save()
+            request.session['message'] = 'Todo was added successfully!'
+
+            return redirect('/todos-django-pure/' + str(new_todo.pk), response)
+        else:
+            error_message = 'The following fields have errors:<br/>'
+            for error in todoForm.errors:
+                error_message += '<br/>' + str(error)
+            response['error_message'] = error_message
+
+    response['form'] = todoForm
+    return render(request, 'partials/todo_django_pure_edit.tpl.html', response)
+
+
+@login_required(function=None, redirect_field_name=None, login_url='/login')
+@require_http_methods(["GET"])
 def get_current_user_id(request):
     user = [{'user_id': request.user.id}]
     return HttpResponse(dumps(user), content_type="application/json")
@@ -152,3 +227,16 @@ def logout(request):
 @require_http_methods(["GET"])
 def home(request):
     return render(request, 'partials/home.tpl.html')
+
+
+def blah(request):
+    response = {}
+    user = request.user
+    response['todos'] = Todo.objects.filter(user_id=user.id).order_by('create_date')
+    return render(request, 'partials/blah.tpl.html', response)
+
+
+def blah2(request):
+    response = {}
+    response['calculation'] = 2 + 2
+    return render(request, 'partials/blah2.tpl.html', response)

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}AngularJS, Django: Todo Application | Edit Todo{% endblock title %}
+
+{% block django_forms_todo_link %}
+    <li class="active"><a href="/todos-django-pure">Todos - Pure Django</a></li>
+{% endblock django_forms_todo_link %}
+
+{% block content %}
+    <form name="editTodoForm" class="form-signin" action="{{ action }}" method="post">
+        {% csrf_token %}
+
+        <h2 class="form-signin-heading">{{ label_display }} Todo Item {{ test }}</h2>
+
+        {% if form.non_field_errors %}
+            <ul>
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% for field in form %}
+            {% if 'Completed' in field.label_tag or 'User' in field.label_tag %}
+                <div class="spacersmall"></div>
+                {{ field.label_tag }} {{ field }}
+                <div class="spacersmall"></div>
+            {% else %}
+                {{ field }}
+            {% endif %}
+        {% endfor %}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{{ label_display }} Todo</button>
+    </form>
+{% endblock content %}
+
+{% block extra_js %}
+    <script type="application/javascript">
+        toastr.options = {
+            "positionClass": "toast-top-center"
+        };
+        {% if message %}
+            toastr.success('{{ message | safe}}');
+        {% elif error_message %}
+            toastr.error('{{ error_message | safe }}');
+        {% elif request.session.message %}
+            toastr.success('{{ request.session.message }}');
+        {% endif %}
+    </script>
+{% endblock extra_js %}

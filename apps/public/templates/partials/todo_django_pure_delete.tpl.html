@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}AngularJS, Django: Todo Application | Delete Todo{% endblock title %}
+
+{% block django_forms_todo_link %}
+    <li class="active"><a href="/todos-django-pure">Todos - Pure Django</a></li>
+{% endblock django_forms_todo_link %}
+
+{% block content %}
+    <form name="editTodoForm" class="form-signin" action="{{ action }}" method="post">
+        {% csrf_token %}
+
+        <h2 class="form-signin-heading">Delete Todo Item?</h2>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Delete Todo</button>
+    </form>
+{% endblock content %}

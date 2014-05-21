@@ -11,6 +11,10 @@ body {
     margin-bottom: 20px;
 }
 
+.spacersmall {
+    padding-bottom: 20px;
+}
+
 .img-thumbnail {
     border: 0;
 }

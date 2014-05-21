@@ -60,8 +60,17 @@
                                     <li><a href="/todos">Current Todo List</a></li>
                                 {% endblock todo_link %}
                                 {% block django_todo_link %}
-                                    <li><a href="/todos-django">Current Todo List - Django</a></li>
+                                    <li><a href="/todos-django">Todos - Django/jQuery</a></li>
                                 {% endblock django_todo_link %}
+                                {% block django_forms_todo_link %}
+                                    <li><a href="/todos-django-pure">Todos - Pure Django</a></li>
+                                {% endblock django_forms_todo_link %}
+                                {% block blah_link %}
+                                    <li><a href="/blah">Blah</a></li>
+                                {% endblock blah_link %}
+                                {% block blah_link_2 %}
+                                    <li><a href="/blah2">Blah 2</a></li>
+                                {% endblock blah_link_2 %}
                                 <li class="dropdown">
                                     <a href="/my-account" class="dropdown-toggle" data-toggle="dropdown">
                                         {{ user.first_name }} {{ user.last_name }} <span class="caret"></span>
